@@ -1,25 +1,46 @@
+import 'package:basketball_point_counter/cubit/counter_cubit.dart';
+import 'package:basketball_point_counter/cubit/counter_state.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
-  runApp(const BasketballPoint());
+  runApp( _BasketballPoint());
 }
 
-class BasketballPoint extends StatefulWidget {
-  const BasketballPoint({super.key});
+// class BasketballPoint extends StatefulWidget {
+//   const BasketballPoint({super.key});
 
-  @override
-  State<BasketballPoint> createState() => _BasketballPointState();
-}
+//   @override
+//   State<BasketballPoint> createState() => _BasketballPointState();
+// }
 
-class _BasketballPointState extends State<BasketballPoint> {
+class _BasketballPoint extends StatelessWidget {
+  
 
-  int count1=0;
-  int count2=0;
+  // int count1=0;
+  // int count2=0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return BlocProvider(
+      create:(context)=>CounterCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen()
+      ),
+    );
+  }
+}
+
+
+
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<CounterCubit,CounterState>(builder:(context,state){
+
+      return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
           title: Text("Points Counter",
@@ -37,11 +58,14 @@ class _BasketballPointState extends State<BasketballPoint> {
                       child: Column(
                         children: [
                           Text("Team A",style: TextStyle(fontSize: 30),),
-                          Text("$count1",style: TextStyle(fontSize: 160),),
+                          Text("${BlocProvider.of<CounterCubit>(context).teamAPiont}",style: TextStyle(fontSize: 160),),
                           ElevatedButton(onPressed: (){
-                            setState(() {
-                              count1++;
-                            });
+                            BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'A', buttonNumber: 1);
+
+                    
+                            // setState(() {
+                            //   count1++;
+                           // });
                           },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
@@ -52,9 +76,11 @@ class _BasketballPointState extends State<BasketballPoint> {
                            ),
                             Spacer(flex: 1,),
                             ElevatedButton(onPressed: (){
-                              setState(() {
-                                count1+=2;
-                              });
+                              BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'A', buttonNumber: 2);
+
+                              // setState(() {
+                              //   count1+=2;
+                              // });
                             },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
@@ -65,9 +91,11 @@ class _BasketballPointState extends State<BasketballPoint> {
                            ),
                             Spacer(flex: 1,),
                             ElevatedButton(onPressed: (){
-                              setState(() {
-                                count1+=3;
-                              });
+                              BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'A', buttonNumber: 3);
+
+                              // setState(() {
+                              //   count1+=3;
+                              // });
                             },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
@@ -92,11 +120,13 @@ class _BasketballPointState extends State<BasketballPoint> {
                         child: Column(
                           children: [
                             Text("Team B",style: TextStyle(fontSize: 30),),
-                          Text("$count2",style: TextStyle(fontSize: 160),),
+                          Text("${BlocProvider.of<CounterCubit>(context).teamBPiont}",style: TextStyle(fontSize: 160),),
                           ElevatedButton(onPressed: (){
-                            setState(() {
-                              count2++;
-                            });
+                            BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'B', buttonNumber: 1);
+
+                            // setState(() {
+                            //   count2++;
+                            // });
                           },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
@@ -107,22 +137,27 @@ class _BasketballPointState extends State<BasketballPoint> {
                            ),
                            Spacer(flex: 1,),
                             ElevatedButton(onPressed: (){
-                              setState(() {
-                                count2+=2;
-                              });
+                              BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'B', buttonNumber: 2);
+
+                              // setState(() {
+                              //   count2+=2;
+                              // });
                             },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, 
                                      ),
                            ),
-                           child: Text("Add 2 point",style: TextStyle(color: Colors.black),)
+                           child:Text("Add 2 point", style: TextStyle(color: Colors.black)),
+                           //setState Text("Add 2 point",style: TextStyle(color: Colors.black),)
                            ),
                             Spacer(flex: 1,),
                             ElevatedButton(onPressed: (){
-                              setState(() {
-                                count2+=3;
-                              });
+                              BlocProvider.of<CounterCubit>(context).TeamIncreament(team: 'A', buttonNumber: 3);
+
+                              // (() {
+                              //   count2+=3;
+                              // });
                             },style: ElevatedButton.styleFrom(
                                  backgroundColor: Colors.orange, 
                            shape: RoundedRectangleBorder(
@@ -140,10 +175,10 @@ class _BasketballPointState extends State<BasketballPoint> {
               ),
               SizedBox(height: 60,),
               ElevatedButton(onPressed: (){
-                setState(() {
-                  count1=0;
-                  count2=0;
-                });
+                // setState(() {
+                //   count1=0;
+                //   count2=0;
+                // });
               },
               style: ElevatedButton.styleFrom(
                                backgroundColor: Colors.orange, 
@@ -158,10 +193,13 @@ class _BasketballPointState extends State<BasketballPoint> {
           ),
         ),
          
-      ),
-    )
-    
-    
-    ;
+      );
+    },listener:(context,state){
+      if(state is CounterAIncrementState){
+       
+      }else{
+        
+      }
+    });
   }
 }

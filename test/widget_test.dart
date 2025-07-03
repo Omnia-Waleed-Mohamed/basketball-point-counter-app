@@ -13,7 +13,7 @@ import 'package:basketball_point_counter/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const BasketballPoint());
+    await tester.pumpWidget(const _BasketballPoint());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
